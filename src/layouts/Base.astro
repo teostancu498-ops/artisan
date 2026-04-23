@@ -1,0 +1,163 @@
+---
+import '~/styles/global.css';
+import Nav from '~/components/Nav.astro';
+import Footer from '~/components/Footer.astro';
+import Loader from '~/components/Loader.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  pageClass?: string;
+}
+
+const {
+  title,
+  description = 'Artizan Urban Coffee Shop — o mică seră pentru cafea făcută fără grabă, în Pitești. Espresso de specialitate, V60 și Aeropress turnate manual, ceaiuri din grădina ferestrei.',
+  pageClass = '',
+} = Astro.props;
+
+const fullTitle = title ? `${title} · Artizan Urban` : 'Artizan Urban Coffee Shop';
+---
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#fbf7ec" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- OG -->
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ro_RO" />
+
+    <title>{fullTitle}</title>
+
+    <!-- Prefetch the fonts fast -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  </head>
+  <body class={`page ${pageClass}`}>
+    <Loader />
+    <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+    <div class="mood-light" data-mood-light aria-hidden="true"></div>
+    <Nav />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+      import { bootSmoothScroll, bootReveals, hideLoader } from '~/scripts/smooth';
+      import { gsap } from 'gsap';
+
+      const start = () => {
+        bootSmoothScroll();
+        bootReveals();
+        requestAnimationFrame(() => hideLoader());
+      };
+
+      if (document.readyState === 'complete') start();
+      else window.addEventListener('load', start, { once: true });
+
+      // --- Cursor mood light ---
+      const moodLight = document.querySelector<HTMLElement>('[data-mood-light]');
+      if (moodLight && !matchMedia('(hover: none)').matches) {
+        let mx = window.innerWidth / 2;
+        let my = window.innerHeight / 2;
+        let cx = mx;
+        let cy = my;
+        let on = false;
+
+        const loop = () => {
+          cx += (mx - cx) * 0.12;
+          cy += (my - cy) * 0.12;
+          moodLight.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+          requestAnimationFrame(loop);
+        };
+        loop();
+
+        window.addEventListener('pointermove', (e) => {
+          mx = e.clientX;
+          my = e.clientY;
+          if (!on) { moodLight.classList.add('is-on'); on = true; }
+        });
+        window.addEventListener('pointerleave', () => { moodLight.classList.remove('is-on'); on = false; });
+      }
+
+      // --- Scroll progress ---
+      const progress = document.querySelector<HTMLElement>('[data-scroll-progress]');
+      if (progress) {
+        const onScroll = () => {
+          const h = document.documentElement;
+          const pct = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+          progress.style.width = `${Math.min(100, Math.max(0, pct * 100))}%`;
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+
+      // --- Magnetic buttons ---
+      const magnets = document.querySelectorAll<HTMLElement>('.btn-leaf, [data-magnetic]');
+      magnets.forEach((el) => {
+        el.classList.add('magnetic');
+        el.addEventListener('pointermove', (e) => {
+          const r = el.getBoundingClientRect();
+          const mxl = e.clientX - r.left - r.width / 2;
+          const myl = e.clientY - r.top - r.height / 2;
+          gsap.to(el, { x: mxl * 0.2, y: myl * 0.3, duration: .4, ease: 'power3.out' });
+          el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+          el.style.setProperty('--my', `${e.clientY - r.top}px`);
+        });
+        el.addEventListener('pointerleave', () => {
+          gsap.to(el, { x: 0, y: 0, duration: .6, ease: 'elastic.out(1,.5)' });
+        });
+      });
+
+      // --- Tilt cards ---
+      const tilts = document.querySelectorAll<HTMLElement>('[data-tilt]');
+      tilts.forEach((el) => {
+        el.classList.add('tilt');
+        el.addEventListener('pointermove', (e) => {
+          const r = el.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          gsap.to(el, {
+            rotateX: -py * 8,
+            rotateY: px * 10,
+            y: -4,
+            duration: .5,
+            ease: 'power3.out',
+            transformPerspective: 800,
+          });
+        });
+        el.addEventListener('pointerleave', () => {
+          gsap.to(el, { rotateX: 0, rotateY: 0, y: 0, duration: .7, ease: 'power3.out' });
+        });
+      });
+
+      // --- Parallax images ---
+      const parallax = document.querySelectorAll<HTMLElement>('[data-parallax]');
+      if (parallax.length) {
+        const update = () => {
+          const vh = window.innerHeight;
+          parallax.forEach((el) => {
+            const r = el.getBoundingClientRect();
+            const center = r.top + r.height / 2 - vh / 2;
+            const amt = Number(el.dataset.parallax || '.15');
+            const img = el.querySelector<HTMLElement>('img');
+            if (img) img.style.transform = `translate3d(0, ${-center * amt}px, 0) scale(1.15)`;
+          });
+        };
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        update();
+      }
+    </script>
+  </body>
+</html>

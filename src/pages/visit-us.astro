@@ -1,0 +1,484 @@
+---
+import Base from '~/layouts/Base.astro';
+import PageHeader from '~/components/PageHeader.astro';
+import { site } from '~/data/site';
+
+const today = new Date().getDay(); // 0 Sun
+// Map site.hours (Monday first) to JS day index (0 Sun)
+const dayIndex = today === 0 ? 6 : today - 1;
+
+const mapEmbedSrc =
+  'https://www.google.com/maps?q=Artizan+Urban+Coffee+Shop+Pite%C8%99ti&output=embed';
+
+const directions = [
+  {
+    icon: 'parking',
+    title: 'Parcare',
+    body:
+      'Pe Bulevardul I. C. Brătianu, în general gratuit la sfârșit de săptămână. O parcare mică cu plată e la 60 m spre Piața Vasile Milea.',
+  },
+  {
+    icon: 'bus',
+    title: 'Cu autobuzul',
+    body:
+      'Liniile 1, 2 și 5 opresc la „Centru" — 3 minute de mers pe jos peste bulevard. Bine pentru mediu, bine pentru noi.',
+  },
+  {
+    icon: 'walk',
+    title: 'Pe jos',
+    body:
+      'Suntem la 7 minute de Casa de Cultură și la 5 minute de piața mare. Caută ușa verde și plantele din geam.',
+  },
+  {
+    icon: 'wifi',
+    title: 'Zi de lucru',
+    body:
+      'Wi-Fi rapid, prize sub bar, ore liniștite până la 11:00. După ora 17:00 punem discuri — devine cozy-zgomotos.',
+  },
+];
+---
+
+<Base
+  title="Vizitează-ne"
+  description="Program, adresă, parcare și tot ce ai nevoie să găsești Artizan Urban Coffee Shop în Pitești. Ceainicul e deja pe foc."
+  pageClass="page-visit"
+>
+  <PageHeader
+    eyebrow="Treci să ne vezi"
+    title="O <em>ușă verde</em><br/>pe Brătianu."
+    subtitle="Suntem deschiși șapte zile pe săptămână, de la espresso-ul de dimineață la chai-ul de seară. Iată tot ce ai nevoie ca să ne găsești și să te așezi."
+  />
+
+  <!-- Fast facts -->
+  <section class="facts frame" data-reveal-stagger>
+    <div class="facts-grid">
+      <a href={site.mapsUrl} target="_blank" rel="noopener" class="fact-card" data-reveal-child data-tilt>
+        <p class="fact-label hand">adresă</p>
+        <p class="fact-value">
+          {site.address}<br/>
+          {site.postal} · {site.city}
+        </p>
+        <span class="fact-link">Deschide în Google Maps →</span>
+      </a>
+
+      <div class="fact-card" data-reveal-child data-tilt>
+        <p class="fact-label hand">azi</p>
+        <p class="fact-value">
+          {site.hours[dayIndex].day}<br/>
+          {site.hours[dayIndex].open} – {site.hours[dayIndex].close}
+        </p>
+        <span class="fact-link now">
+          <span class="dot" aria-hidden="true"></span>
+          deschis · ceainicul fredonează
+        </span>
+      </div>
+
+      <a href={site.phoneHref} class="fact-card" data-reveal-child data-tilt>
+        <p class="fact-label hand">telefon</p>
+        <p class="fact-value">{site.phone}</p>
+        <span class="fact-link">Chiar răspundem. →</span>
+      </a>
+
+      <a href={`mailto:${site.email}`} class="fact-card" data-reveal-child data-tilt>
+        <p class="fact-label hand">email</p>
+        <p class="fact-value">{site.email}</p>
+        <span class="fact-link">Pentru evenimente & rezervări →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Map + hours -->
+  <section class="map-section frame">
+    <div class="map-inner">
+      <div class="map-wrap" data-reveal="scale">
+        <iframe
+          title="Artizan Urban Coffee Shop pe Google Maps"
+          src={mapEmbedSrc}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+        <a href={site.directionsUrl} target="_blank" rel="noopener" class="map-cta btn-leaf">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2C7 2 3 6 3 11c0 6 9 11 9 11s9-5 9-11c0-5-4-9-9-9z"
+                  stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="12" cy="11" r="3" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          Deschide indicațiile
+        </a>
+      </div>
+
+      <div class="hours" data-reveal-stagger>
+        <p class="eyebrow" data-reveal-child>Uși deschise</p>
+        <h2 class="display" data-reveal-child>
+          În fiecare zi, <em>la timp.</em>
+        </h2>
+        <p class="hours-note" data-reveal-child>
+          Ultimele comenzi cu 30 de minute înainte de închidere. Dacă ai nevoie
+          de noi în afara programului, sună — uneori deschidem mai devreme
+          pentru grupuri mici.
+        </p>
+
+        <ul class="hours-list" data-reveal-child>
+          {site.hours.map((h, i) => (
+            <li class:list={['hour-row', i === dayIndex && 'is-today']}>
+              <span class="hr-day">{h.day}</span>
+              <span class="hr-dots" aria-hidden="true"></span>
+              <span class="hr-time">{h.open} – {h.close}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to find us -->
+  <section class="directions-section frame">
+    <div class="dir-inner">
+      <header class="dir-head" data-reveal-stagger>
+        <p class="eyebrow" data-reveal-child>Cum ajungi la seră</p>
+        <h2 class="display" data-reveal-child>
+          Câteva <em>vorbe bune</em> <br/> înainte să vii.
+        </h2>
+      </header>
+
+      <ul class="dir-grid" data-reveal-stagger>
+        {directions.map((d) => (
+          <li class="dir-card" data-reveal-child data-tilt>
+            <span class="dir-icon" aria-hidden="true">
+              {d.icon === 'parking' && (
+                <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M16 12 h7 a4 4 0 0 1 0 8 h-7 v-8 z M16 20 v8" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+              )}
+              {d.icon === 'bus' && (
+                <svg viewBox="0 0 40 40"><rect x="8" y="8" width="24" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="8" y1="18" x2="32" y2="18" stroke="currentColor" stroke-width="1.4"/><circle cx="14" cy="30" r="2" fill="currentColor"/><circle cx="26" cy="30" r="2" fill="currentColor"/></svg>
+              )}
+              {d.icon === 'walk' && (
+                <svg viewBox="0 0 40 40"><circle cx="22" cy="10" r="3" fill="currentColor"/><path d="M22 14 l-4 10 l-4 8 M22 14 l3 6 l6 2 M22 20 l-2 6 l2 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+              )}
+              {d.icon === 'wifi' && (
+                <svg viewBox="0 0 40 40"><path d="M8 18 a20 20 0 0 1 24 0 M12 24 a14 14 0 0 1 16 0 M16 30 a8 8 0 0 1 8 0" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="20" cy="34" r="2" fill="currentColor"/></svg>
+              )}
+            </span>
+            <h3>{d.title}</h3>
+            <p>{d.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact / closing -->
+  <section class="contact-section frame">
+    <div class="contact-inner">
+      <div data-reveal-stagger>
+        <p class="eyebrow" data-reveal-child>Rezervări & evenimente</p>
+        <h2 class="display" data-reveal-child>
+          Organizezi o mică <em>sărbătoare?</em>
+        </h2>
+        <p class="contact-lead" data-reveal-child>
+          Închiriază camera cu plante pentru zile de naștere, degustări, cluburi
+          de carte sau dimineți liniștite de lucru. Primim până la 18 oaspeți —
+          spune-ne atmosfera, construim noi meniul.
+        </p>
+
+        <div class="contact-row" data-reveal-child>
+          <a href={site.phoneHref} class="btn-leaf">Sună la {site.phone}</a>
+          <a href={`mailto:${site.email}?subject=Rezervare%20la%20Artizan%20Urban`} class="btn-ghost">
+            Scrie-ne
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-aside" data-reveal="scale">
+        <div class="aside-frame">
+          <p class="hand aside-kicker">Pe curând</p>
+          <p class="aside-body">
+            „Cel mai bun lucru la locul ăsta e că e făcut pentru zăbovit. Vino
+            cu o carte, vino cu un prieten, vino cu nimic — te avem acoperit."
+          </p>
+          <p class="aside-sign">— Andrei, barista</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Facts */
+  .facts {
+    position: relative;
+    z-index: 2;
+    padding-block: 2rem 4rem;
+  }
+  .facts-grid {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  @media (max-width: 900px) { .facts-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .facts-grid { grid-template-columns: 1fr; } }
+
+  .fact-card {
+    display: grid;
+    gap: .35rem;
+    padding: 1.4rem 1.3rem 1.2rem;
+    border: 1px solid rgba(66, 81, 53, .2);
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(251, 247, 236, .9), rgba(237, 227, 204, .6));
+    color: var(--moss-deep);
+    text-decoration: none;
+    transition: transform .4s, box-shadow .4s, border-color .4s;
+    box-shadow: 0 18px 40px -24px rgba(43, 52, 37, .3);
+  }
+  .fact-card:hover {
+    box-shadow: 0 30px 55px -20px rgba(43, 52, 37, .3);
+    border-color: rgba(184, 80, 46, .5);
+  }
+  .fact-label { color: var(--ember); font-size: 1.15rem; }
+  .fact-value {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--moss-deep);
+    margin: 0;
+  }
+  .fact-link {
+    margin-top: .4rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: .72rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--moss);
+  }
+  .fact-link.now { color: var(--ember-deep); display: inline-flex; align-items: center; gap: .5rem; }
+  .fact-link.now .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--ember);
+    box-shadow: 0 0 0 4px rgba(184, 80, 46, .25);
+    animation: dot-pulse 2s ease-in-out infinite;
+  }
+
+  /* Map + hours */
+  .map-section {
+    position: relative;
+    padding-block: clamp(3rem, 6vw, 5rem);
+  }
+  .map-inner {
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+  @media (max-width: 960px) { .map-inner { grid-template-columns: 1fr; } }
+
+  .map-wrap {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(66, 81, 53, .2);
+    box-shadow: 0 40px 80px -40px rgba(43, 52, 37, .45);
+    aspect-ratio: 4/3;
+    background: var(--parchment);
+  }
+  .map-wrap iframe {
+    width: 100%; height: 100%;
+    border: 0;
+    filter: saturate(1.05) contrast(1.02);
+  }
+  .map-cta {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+  }
+
+  .hours .display {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--moss-deep);
+    margin: .5rem 0 1rem;
+  }
+  .hours em { color: var(--ember); }
+  .hours-note {
+    color: var(--text-body);
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    max-width: 42ch;
+  }
+
+  .hours-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid rgba(66, 81, 53, .2);
+  }
+  .hour-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 1rem;
+    align-items: center;
+    padding-block: .9rem;
+    border-bottom: 1px solid rgba(66, 81, 53, .12);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--text-body);
+    transition: color .3s, padding-inline .3s;
+  }
+  .hour-row:hover { color: var(--ink); padding-inline: .3rem; }
+  .hour-row.is-today {
+    color: var(--moss-deep);
+    font-weight: 700;
+    position: relative;
+  }
+  .hour-row.is-today::before {
+    content: 'ASTĂZI';
+    position: absolute;
+    left: -66px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: .6rem;
+    letter-spacing: .3em;
+    color: var(--ember-deep);
+  }
+  @media (max-width: 520px) { .hour-row.is-today::before { display: none; } }
+
+  .hr-day { font-size: .98rem; }
+  .hr-dots {
+    border-top: 1px dotted rgba(66, 81, 53, .3);
+    width: 60px;
+    margin-top: 8px;
+  }
+  .hr-time {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ember-deep);
+  }
+
+  /* Directions */
+  .directions-section {
+    padding-block: clamp(4rem, 8vw, 6rem);
+  }
+  .dir-inner { width: min(1180px, 100%); margin: 0 auto; }
+  .dir-head { display: grid; gap: .8rem; max-width: 620px; margin-bottom: 2.5rem; }
+  .dir-head .display { font-size: clamp(2rem, 4vw, 3.2rem); color: var(--moss-deep); margin: 0; }
+  .dir-head em { color: var(--ember); }
+
+  .dir-grid {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 960px) { .dir-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .dir-grid { grid-template-columns: 1fr; } }
+
+  .dir-card {
+    padding: 1.6rem 1.4rem;
+    border-radius: 18px;
+    border: 1px solid rgba(66, 81, 53, .2);
+    background: linear-gradient(180deg, rgba(251, 247, 236, .9), rgba(237, 227, 204, .55));
+    box-shadow: 0 18px 40px -24px rgba(43, 52, 37, .25);
+    transition: border-color .4s, box-shadow .4s;
+  }
+  .dir-card:hover {
+    border-color: rgba(184, 80, 46, .5);
+    box-shadow: 0 30px 55px -20px rgba(43, 52, 37, .3);
+  }
+  .dir-icon {
+    display: inline-flex;
+    width: 46px; height: 46px;
+    align-items: center; justify-content: center;
+    border-radius: 999px;
+    background: rgba(184, 80, 46, .15);
+    color: var(--ember-deep);
+    margin-bottom: .8rem;
+  }
+  .dir-icon svg { width: 22px; height: 22px; }
+  .dir-card h3 {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: 1.25rem; color: var(--moss-deep);
+    margin: 0 0 .4rem;
+  }
+  .dir-card p {
+    color: var(--text-body);
+    font-weight: 500;
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  /* contact */
+  .contact-section { padding-block: clamp(4rem, 10vw, 8rem); }
+  .contact-inner {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+  @media (max-width: 880px) { .contact-inner { grid-template-columns: 1fr; } }
+
+  .contact-inner .display {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: var(--moss-deep);
+    margin: .5rem 0 1rem;
+  }
+  .contact-inner em { color: var(--ember); }
+  .contact-lead {
+    color: var(--text-body);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    max-width: 48ch;
+  }
+  .contact-row { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+
+  .aside-frame {
+    padding: 2.5rem 2rem;
+    border-radius: 22px;
+    background: var(--moss-deep);
+    color: var(--candle);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -40px rgba(43, 52, 37, .55);
+  }
+  .aside-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 10% 0%, rgba(200, 94, 58, .3), transparent 55%);
+    pointer-events: none;
+  }
+  .aside-kicker {
+    color: var(--ember-glow);
+    font-size: 1.4rem;
+    margin-bottom: .4rem;
+    position: relative;
+  }
+  .aside-body {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--candle);
+    position: relative;
+  }
+  .aside-sign {
+    margin-top: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: .7rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: rgba(246, 228, 192, .7);
+    position: relative;
+  }
+</style>

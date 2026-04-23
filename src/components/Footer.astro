@@ -1,0 +1,139 @@
+---
+import { site } from '~/data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer frame" data-reveal="fade">
+  <div class="hairline" aria-hidden="true"></div>
+
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <p class="hand">Treci pe la noi, stai o clipă.</p>
+      <h3 class="display">Artizan Urban <br/>Coffee Shop</h3>
+      <p class="footer-address">
+        {site.address}<br/>
+        {site.postal} · {site.city}, {site.country}
+      </p>
+      <a href={site.phoneHref} class="link-draw phone">{site.phone}</a>
+    </div>
+
+    <div class="footer-col">
+      <p class="eyebrow">Rătăcește</p>
+      <ul>
+        <li><a class="link-draw" href="/">Acasă</a></li>
+        <li><a class="link-draw" href="/menu">Meniu</a></li>
+        <li><a class="link-draw" href="/about-us">Despre noi</a></li>
+        <li><a class="link-draw" href="/visit-us">Vizitează-ne</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <p class="eyebrow">Uși deschise</p>
+      <ul class="hours-list">
+        {site.hours.map(h => (
+          <li>
+            <span>{h.day}</span>
+            <span class="dotted" aria-hidden="true"></span>
+            <span>{h.open}–{h.close}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <p class="eyebrow">Spune salut</p>
+      <ul>
+        <li><a class="link-draw" href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><a class="link-draw" href={site.instagram} target="_blank" rel="noopener">Instagram</a></li>
+        <li><a class="link-draw" href={site.facebook}  target="_blank" rel="noopener">Facebook</a></li>
+        <li><a class="link-draw" href={site.mapsUrl}   target="_blank" rel="noopener">Pe Google Maps</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© {year} Artizan Urban Coffee Shop — făcut cu drag în Pitești.</p>
+    <p class="hand">Mulțumim că ne-ai vizitat.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    z-index: 2;
+    color: var(--moss-deep);
+    padding-block: clamp(3rem, 8vw, 6rem) 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.3fr 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+  }
+  @media (max-width: 880px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 520px) {
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+
+  .footer-brand .hand { font-size: 1.45rem; margin-bottom: .25rem; }
+  .footer-brand h3 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin: 0 0 .8rem; }
+  .footer-address {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: .9rem;
+    color: var(--moss);
+    margin-bottom: .7rem;
+  }
+  .phone {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--ember-deep);
+  }
+
+  .footer-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .55rem; }
+  .footer-col a {
+    color: var(--moss-deep);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .footer-col a:hover { color: var(--ember); }
+
+  .eyebrow { margin-bottom: 1rem; }
+
+  .hours-list li {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: .5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: .88rem;
+    color: var(--moss-deep);
+  }
+  .dotted {
+    border-top: 1px dotted rgba(66, 81, 53, .45);
+    margin-top: 2px;
+  }
+
+  .footer-bottom {
+    margin-top: clamp(2rem, 5vw, 4rem);
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(66, 81, 53, .15);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .1em;
+    color: var(--moss);
+  }
+  .footer-bottom .hand { font-family: 'Caveat', cursive; font-weight: 600; font-size: 1.25rem; letter-spacing: 0; color: var(--ember); }
+</style>

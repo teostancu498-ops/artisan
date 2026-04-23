@@ -1,0 +1,814 @@
+---
+import Base from '~/layouts/Base.astro';
+import PageHeader from '~/components/PageHeader.astro';
+import Marquee from '~/components/Marquee.astro';
+import { menu } from '~/data/menu';
+import { site } from '~/data/site';
+
+const outroImage = '/images/two-cups-outside.webp';
+---
+
+<Base
+  title="Meniu"
+  description="Meniul Artizan Urban — Black & White Coffee, Iced, Special Coffee, Ceaiuri, B-R-E-W, băuturi și smoothie-uri proaspete."
+  pageClass="page-menu"
+>
+  <PageHeader
+    eyebrow="Ce se toarnă · 2026"
+    title="Meniul <em>Artizan</em> —<br/>simplu, cinstit, pe bar."
+    subtitle="Espresso de specialitate, metode alternative turnate manual, ceaiuri în vrac, smoothie-uri proaspete. Prețurile sunt în lei, toate băuturile se pot face și cu lapte vegetal."
+  />
+
+  <!-- Category rail (sticky chips) -->
+  <nav class="menu-rail frame" aria-label="Secțiuni meniu">
+    <ul>
+      {menu.map(c => (
+        <li><a href={`#${c.id}`} class="rail-link">{c.title}</a></li>
+      ))}
+    </ul>
+  </nav>
+
+  <!-- Floating decorative beans -->
+  <div class="menu-bg" aria-hidden="true">
+    <svg class="bean b1" viewBox="0 0 40 60"><path d="M20 2 C32 8 38 24 32 42 C28 54 14 58 8 50 C2 40 4 22 10 12 C13 7 16 4 20 2 Z M20 10 C16 18 14 30 16 42" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="bean b2" viewBox="0 0 40 60"><path d="M20 2 C32 8 38 24 32 42 C28 54 14 58 8 50 C2 40 4 22 10 12 C13 7 16 4 20 2 Z M20 10 C16 18 14 30 16 42" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="bean b3" viewBox="0 0 40 60"><path d="M20 2 C32 8 38 24 32 42 C28 54 14 58 8 50 C2 40 4 22 10 12 C13 7 16 4 20 2 Z M20 10 C16 18 14 30 16 42" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="bean b4" viewBox="0 0 40 60"><path d="M20 2 C32 8 38 24 32 42 C28 54 14 58 8 50 C2 40 4 22 10 12 C13 7 16 4 20 2 Z M20 10 C16 18 14 30 16 42" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </div>
+
+  <div class="menu-editorial frame">
+
+    <!-- LEFT: sticky stage that changes with scroll -->
+    <aside class="menu-stage" aria-hidden="true">
+      <div class="stage-inner">
+        {menu.map((cat, i) => (
+          <article
+            class="stage-slide"
+            data-stage={cat.id}
+            data-accent={cat.accent || 'ember'}
+          >
+            <div class="stage-count">
+              <span class="stage-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="stage-total">/ {String(menu.length).padStart(2, '0')} · categorii</span>
+            </div>
+
+            <h2 class="stage-title display">{cat.title}</h2>
+
+            {cat.subtitle && <p class="stage-sub hand">{cat.subtitle}</p>}
+            {cat.note && <p class="stage-note">{cat.note}</p>}
+
+            <!-- decorative glyph per category -->
+            <div class="stage-glyph" data-glyph={cat.glyph || 'bean'}>
+              {cat.glyph === 'cup' && (
+                <svg viewBox="0 0 200 200" class="glyph">
+                  <g class="steam">
+                    <path d="M85 50 C78 40 92 32 85 22 C78 12 92 6 86 -2" />
+                    <path d="M105 52 C98 42 112 34 105 24 C98 14 112 8 106 0" />
+                    <path d="M125 50 C118 40 132 32 125 22 C118 12 132 6 126 -2" />
+                  </g>
+                  <path class="cup" d="M45 80 L150 80 L140 160 C138 172 128 178 118 178 L77 178 C67 178 57 172 55 160 Z" />
+                  <path class="handle" d="M150 95 C178 100 178 140 150 150" />
+                  <ellipse class="saucer" cx="100" cy="188" rx="80" ry="6" />
+                </svg>
+              )}
+              {cat.glyph === 'bean' && (
+                <svg viewBox="0 0 200 200" class="glyph">
+                  <path class="bean-shape" d="M100 20 C150 40 170 100 140 160 C115 200 60 195 40 150 C20 105 50 40 100 20 Z" />
+                  <path class="bean-crack" d="M100 30 C85 60 75 110 90 170" />
+                </svg>
+              )}
+              {cat.glyph === 'leaf' && (
+                <svg viewBox="0 0 200 200" class="glyph">
+                  <path class="leaf-body" d="M100 20 C40 40 20 110 40 170 C100 160 160 110 160 40 C140 30 120 25 100 20 Z" />
+                  <path class="leaf-vein" d="M100 30 L60 160" />
+                  <path class="leaf-vein" d="M90 70 L120 85" />
+                  <path class="leaf-vein" d="M78 105 L110 120" />
+                  <path class="leaf-vein" d="M66 140 L100 155" />
+                </svg>
+              )}
+              {cat.glyph === 'ice' && (
+                <svg viewBox="0 0 200 200" class="glyph">
+                  <rect class="cube" x="30" y="60" width="70" height="70" rx="8" transform="rotate(-8 65 95)" />
+                  <rect class="cube" x="95" y="45" width="70" height="70" rx="8" transform="rotate(10 130 80)" />
+                  <rect class="cube" x="65" y="120" width="70" height="70" rx="8" transform="rotate(-2 100 155)" />
+                </svg>
+              )}
+              {cat.glyph === 'flame' && (
+                <svg viewBox="0 0 200 200" class="glyph">
+                  <path class="flame-outer" d="M100 20 C130 60 160 90 140 140 C125 180 75 180 60 140 C45 105 80 85 100 20 Z" />
+                  <path class="flame-inner" d="M100 70 C115 95 130 115 118 140 C108 165 92 165 82 140 C72 115 92 100 100 70 Z" />
+                </svg>
+              )}
+              {cat.glyph === 'drop' && (
+                <svg viewBox="0 0 200 200" class="glyph">
+                  <path class="drop-shape" d="M100 20 C140 70 170 110 150 150 C130 190 70 190 50 150 C30 110 60 70 100 20 Z" />
+                  <path class="drop-shine" d="M75 90 C68 105 70 125 82 135" />
+                </svg>
+              )}
+              {cat.glyph === 'pour' && (
+                <svg viewBox="0 0 200 200" class="glyph">
+                  <path class="pour-cone" d="M50 30 L150 30 L130 130 L70 130 Z" />
+                  <path class="pour-filter" d="M70 130 L130 130 L115 170 L85 170 Z" />
+                  <path class="pour-drip" d="M100 170 L100 195" />
+                  <circle class="pour-drop" cx="100" cy="195" r="4" />
+                </svg>
+              )}
+              {cat.glyph === 'fruit' && (
+                <svg viewBox="0 0 200 200" class="glyph">
+                  <circle class="berry" cx="70" cy="90"  r="22" />
+                  <circle class="berry" cx="110" cy="80" r="26" />
+                  <circle class="berry" cx="90" cy="130" r="24" />
+                  <circle class="berry" cx="130" cy="125" r="20" />
+                  <path class="stem" d="M100 60 L100 30 M100 40 L85 25 M100 40 L115 25" />
+                </svg>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Stage dots -->
+      <ol class="stage-dots" role="list">
+        {menu.map((cat, i) => (
+          <li>
+            <a href={`#${cat.id}`} class="stage-dot" data-dot={cat.id}>
+              <span class="dot-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="dot-label">{cat.title}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </aside>
+
+    <!-- RIGHT: the actual menu stream -->
+    <div class="menu-stream">
+      {menu.map((cat, i) => (
+        <section class="menu-cat" id={cat.id} data-cat={cat.id} data-accent={cat.accent || 'ember'}>
+          <!-- Mobile-only category header (desktop uses sticky stage instead) -->
+          <header class="cat-head-mobile" data-reveal-stagger>
+            <div class="cat-num" data-reveal-child>{String(i + 1).padStart(2, '0')} · din · {String(menu.length).padStart(2, '0')}</div>
+            <h2 class="display" data-reveal-child>{cat.title}</h2>
+            {cat.subtitle && <p class="hand" data-reveal-child>{cat.subtitle}</p>}
+            {cat.note && <p class="cat-note" data-reveal-child>{cat.note}</p>}
+          </header>
+
+          <!-- Desktop spacer so the big title aligns visually -->
+          <div class="cat-anchor" aria-hidden="true">
+            <span class="anchor-line"></span>
+            <span class="anchor-label">{String(i + 1).padStart(2, '0')} · {cat.title}</span>
+          </div>
+
+          <ul class="cat-items" data-reveal-stagger>
+            {cat.items.map((item) => (
+              <li class="menu-item" data-reveal-child>
+                <div class="item-line">
+                  <h3 class="item-name">
+                    <span class="name-text">{item.name}</span>
+                    {item.vol && <span class="vol-chip">{item.vol}</span>}
+                    {item.badge && <span class="badge">{item.badge}</span>}
+                  </h3>
+                  <span class="dotted-fill" aria-hidden="true"></span>
+                  <span class="price">{item.price}</span>
+                </div>
+                {item.description && <p class="item-desc">{item.description}</p>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </div>
+
+  <Marquee items={['Single origin', 'Turnat manual', 'Lapte vegetal la bar', 'De sezon', 'Șarjă mică', 'Fără grabă']} />
+
+  <section class="menu-outro frame" data-reveal>
+    <div class="menu-outro-inner">
+      <div>
+        <p class="eyebrow">O notă</p>
+        <h2 class="display outro-title">
+          Alergii? Întreabă — <br/>
+          ținem <em>lapte vegetal</em> la bar.
+        </h2>
+        <p class="outro-sub">
+          Ovăz, migdale, cocos — toate disponibile, fără supliment. Decaful e
+          mereu pornit. Prietenii patrupezi sunt bineveniți în camera cu plante.
+        </p>
+        <a href={site.phoneHref} class="btn-leaf">Sună-ne · {site.phone}</a>
+      </div>
+
+      <div class="mood-image outro-art" data-parallax=".08">
+        <img src={outroImage} alt="Ceainic și ceașcă cu ceai cald" loading="lazy" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // ---------- Rail chips (already existing pattern, kept) ----------
+  const railLinks = document.querySelectorAll<HTMLAnchorElement>('.menu-rail a');
+  const sections  = Array.from(document.querySelectorAll<HTMLElement>('.menu-cat'));
+
+  const onScroll = () => {
+    const y = window.scrollY + 200;
+    let current = sections[0]?.id;
+    for (const s of sections) {
+      if (s.offsetTop <= y) current = s.id;
+    }
+    railLinks.forEach(a => {
+      const active = a.getAttribute('href') === `#${current}`;
+      a.classList.toggle('is-active', active);
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ---------- Stage (desktop sticky panel) ----------
+  const stageSlides = document.querySelectorAll<HTMLElement>('[data-stage]');
+  const stageDots   = document.querySelectorAll<HTMLElement>('[data-dot]');
+
+  const setActiveCategory = (id: string) => {
+    stageSlides.forEach(s => s.classList.toggle('is-active', s.dataset.stage === id));
+    stageDots.forEach(d => d.classList.toggle('is-active', d.dataset.dot === id));
+    // propagate accent to the whole editorial block for colour shifts
+    const active = document.querySelector<HTMLElement>(`[data-stage="${id}"]`);
+    const wrap   = document.querySelector<HTMLElement>('.menu-editorial');
+    if (active && wrap) {
+      wrap.dataset.activeAccent = active.dataset.accent || 'ember';
+    }
+  };
+
+  if ('IntersectionObserver' in window && sections.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        // Pick the entry with largest intersection ratio that is visible.
+        let best: IntersectionObserverEntry | null = null;
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+        }
+        if (best) {
+          const id = (best.target as HTMLElement).id;
+          setActiveCategory(id);
+        }
+      },
+      {
+        // Trigger when section crosses the upper third of the viewport
+        rootMargin: '-35% 0px -45% 0px',
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+      }
+    );
+    sections.forEach(s => io.observe(s));
+    // initial
+    setActiveCategory(sections[0].id);
+  }
+
+  // ---------- Item hover: magnetic price pull on desktop ----------
+  if (!matchMedia('(hover: none)').matches && matchMedia('(min-width: 980px)').matches) {
+    const items = document.querySelectorAll<HTMLElement>('.menu-item');
+    items.forEach((el) => {
+      el.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        el.style.setProperty('--tx', `${(px - 0.5) * 8}px`);
+      });
+      el.addEventListener('pointerleave', () => {
+        el.style.setProperty('--tx', `0px`);
+      });
+    });
+  }
+</script>
+
+<style>
+  /* ========================================================
+     RAIL (chip nav) — kept polished
+  ======================================================== */
+  .menu-rail {
+    position: sticky;
+    top: 64px;
+    z-index: 10;
+    padding-block: .8rem;
+    background: rgba(251, 247, 236, .85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(66, 81, 53, .15);
+    border-bottom: 1px solid rgba(66, 81, 53, .15);
+  }
+  .menu-rail ul {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .4rem 1rem;
+  }
+  .rail-link {
+    display: inline-block;
+    padding: .4rem .9rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: .72rem;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--moss);
+    text-decoration: none;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: color .3s, border-color .3s, background .3s;
+  }
+  .rail-link:hover { color: var(--moss-deep); background: rgba(66, 81, 53, .08); }
+  .rail-link.is-active {
+    color: var(--parchment-soft);
+    background: var(--ember);
+    border-color: var(--ember);
+  }
+
+  /* ========================================================
+     DECORATIVE FLOATING BEANS (background)
+  ======================================================== */
+  .menu-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .menu-bg .bean {
+    position: absolute;
+    width: 90px;
+    color: var(--moss);
+    opacity: .07;
+    animation: beanDrift 18s ease-in-out infinite;
+  }
+  .menu-bg .b1 { top: 8%;  left: -30px; transform: rotate(-18deg); }
+  .menu-bg .b2 { top: 42%; right: 4%;   transform: rotate(24deg);  animation-duration: 22s; animation-delay: -5s; }
+  .menu-bg .b3 { top: 72%; left: 8%;    transform: rotate(-8deg);  animation-duration: 26s; animation-delay: -11s; }
+  .menu-bg .b4 { top: 92%; right: 10%;  transform: rotate(38deg);  animation-duration: 20s; animation-delay: -3s; }
+  @keyframes beanDrift {
+    0%,100% { transform: translate(0,0) rotate(var(--r, 0deg)); }
+    50%     { transform: translate(10px,-18px) rotate(calc(var(--r, 0deg) + 6deg)); }
+  }
+
+  /* ========================================================
+     EDITORIAL LAYOUT (desktop split-screen)
+  ======================================================== */
+  .menu-editorial {
+    position: relative;
+    width: min(1280px, 100%);
+    margin: 0 auto;
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    z-index: 1;
+  }
+
+  /* ---- Sticky stage (desktop only) ---- */
+  .menu-stage { display: none; }
+
+  @media (min-width: 980px) {
+    .menu-editorial {
+      grid-template-columns: minmax(360px, 45%) 1fr;
+      gap: clamp(2rem, 5vw, 5rem);
+    }
+
+    .menu-stage {
+      display: block;
+      position: sticky;
+      top: 130px;
+      height: calc(100vh - 160px);
+      min-height: 560px;
+      align-self: start;
+    }
+
+    .stage-inner {
+      position: relative;
+      width: 100%;
+      height: 80%;
+      min-height: 460px;
+    }
+
+    .stage-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+      opacity: 0;
+      transform: translateY(14px) scale(.985);
+      filter: blur(6px);
+      transition:
+        opacity .7s cubic-bezier(.2,.7,.2,1),
+        transform .9s cubic-bezier(.2,.7,.2,1),
+        filter .6s cubic-bezier(.2,.7,.2,1);
+      pointer-events: none;
+    }
+    .stage-slide.is-active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    .stage-count {
+      display: flex;
+      align-items: baseline;
+      gap: .7rem;
+      color: var(--ember-deep);
+    }
+    .stage-num {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-size: clamp(5rem, 9vw, 9rem);
+      line-height: .8;
+      letter-spacing: -0.04em;
+      background: linear-gradient(180deg, var(--ember-glow) 0%, var(--ember-deep) 100%);
+      -webkit-background-clip: text;
+              background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 30px rgba(184, 80, 46, .12);
+    }
+    .stage-total {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: .72rem;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .stage-title {
+      font-size: clamp(2.8rem, 5.2vw, 4.6rem);
+      color: var(--moss-deep);
+      margin: .3rem 0 .2rem;
+    }
+    .stage-sub {
+      font-size: 1.6rem;
+      color: var(--ember);
+      margin: 0;
+    }
+    .stage-note {
+      max-width: 40ch;
+      color: var(--text-body);
+      font-weight: 500;
+      margin-top: .3rem;
+    }
+
+    /* Accent-driven stage title colour */
+    .stage-slide[data-accent='moss']   .stage-num { background: linear-gradient(180deg, var(--moss-light) 0%, var(--moss-deep) 100%); -webkit-background-clip: text; background-clip: text; }
+    .stage-slide[data-accent='candle'] .stage-num { background: linear-gradient(180deg, #d9a15d 0%, #8a5a1d 100%);                    -webkit-background-clip: text; background-clip: text; }
+
+    /* ---- Glyph art ---- */
+    .stage-glyph {
+      margin-top: auto;
+      width: 180px;
+      height: 180px;
+      color: var(--ember);
+      opacity: .85;
+      align-self: flex-start;
+    }
+    .stage-slide[data-accent='moss']   .stage-glyph { color: var(--moss); }
+    .stage-slide[data-accent='candle'] .stage-glyph { color: #c08441; }
+    .glyph {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .glyph path,
+    .glyph rect,
+    .glyph circle,
+    .glyph ellipse {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+    /* Filled shapes per glyph */
+    .glyph .cup      { fill: rgba(184,80,46,.10); }
+    .glyph .saucer   { fill: currentColor; opacity: .45; stroke: none; }
+    .glyph .steam path { stroke-dasharray: 60; animation: steamDraw 3.5s ease-in-out infinite; }
+    .glyph .steam path:nth-child(2) { animation-delay: .5s; }
+    .glyph .steam path:nth-child(3) { animation-delay: 1s; }
+    .glyph .bean-shape { fill: rgba(184,80,46,.12); }
+    .glyph .leaf-body  { fill: rgba(66,81,53,.12); }
+    .glyph .cube       { fill: rgba(134, 154, 102, .18); }
+    .glyph .flame-outer { fill: rgba(184,80,46,.14); }
+    .glyph .flame-inner { fill: rgba(246,228,192,.55); animation: flamePulse 2.5s ease-in-out infinite; transform-origin: 100px 140px; }
+    .glyph .drop-shape { fill: rgba(134, 154, 102, .18); }
+    .glyph .pour-cone   { fill: rgba(246,228,192,.35); }
+    .glyph .pour-filter { fill: rgba(184,80,46,.18); }
+    .glyph .pour-drop   { fill: currentColor; stroke: none; animation: drip 1.8s ease-in-out infinite; }
+    .glyph .berry       { fill: rgba(184,80,46,.25); }
+    .glyph .berry:nth-child(2) { fill: rgba(66,81,53,.25); }
+    .glyph .berry:nth-child(3) { fill: rgba(184,80,46,.35); }
+    .glyph .berry:nth-child(4) { fill: rgba(66,81,53,.35); }
+
+    /* Rotate beans & such gently while active */
+    .stage-slide.is-active .glyph .bean-shape { animation: softSpin 22s linear infinite; transform-origin: 100px 110px; }
+    .stage-slide.is-active .glyph .leaf-body  { animation: leafSway 6s ease-in-out infinite; transform-origin: 100px 180px; }
+    .stage-slide.is-active .glyph .cube       { animation: floaty 5s ease-in-out infinite; }
+    .stage-slide.is-active .glyph .cube:nth-child(2) { animation-delay: .6s; }
+    .stage-slide.is-active .glyph .cube:nth-child(3) { animation-delay: 1.2s; }
+    .stage-slide.is-active .glyph .berry      { animation: floaty 4s ease-in-out infinite; }
+    .stage-slide.is-active .glyph .berry:nth-child(2) { animation-delay: .4s; }
+    .stage-slide.is-active .glyph .berry:nth-child(3) { animation-delay: .8s; }
+    .stage-slide.is-active .glyph .berry:nth-child(4) { animation-delay: 1.2s; }
+
+    @keyframes steamDraw {
+      0%   { stroke-dashoffset: 60; opacity: 0; }
+      30%  { opacity: 1; }
+      100% { stroke-dashoffset: -60; opacity: 0; }
+    }
+    @keyframes softSpin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes leafSway {
+      0%,100% { transform: rotate(-2deg); }
+      50%     { transform: rotate(3deg); }
+    }
+    @keyframes floaty {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-6px); }
+    }
+    @keyframes flamePulse {
+      0%,100% { transform: scale(1);   opacity: .7; }
+      50%     { transform: scale(1.06); opacity: 1; }
+    }
+    @keyframes drip {
+      0%   { transform: translateY(-10px); opacity: 0; }
+      30%  { opacity: 1; }
+      100% { transform: translateY(14px);  opacity: 0; }
+    }
+
+    /* ---- Dots progress ---- */
+    .stage-dots {
+      list-style: none;
+      padding: 0;
+      margin: 1.2rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+      max-height: 18vh;
+      overflow: hidden;
+    }
+    .stage-dot {
+      display: flex;
+      align-items: baseline;
+      gap: .7rem;
+      padding: .2rem 0;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      transition: color .3s, transform .3s;
+      position: relative;
+      padding-left: 0;
+    }
+    .stage-dot::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: currentColor;
+      opacity: .4;
+      transition: width .4s cubic-bezier(.2,.7,.2,1), opacity .3s, background .3s;
+    }
+    .stage-dot .dot-num { font-variant-numeric: tabular-nums; }
+    .stage-dot:hover { color: var(--moss-deep); }
+    .stage-dot.is-active {
+      color: var(--ember-deep);
+      transform: translateX(6px);
+    }
+    .stage-dot.is-active::before {
+      width: 48px;
+      background: var(--ember);
+      opacity: 1;
+    }
+  }
+
+  /* ========================================================
+     MENU STREAM (right column)
+  ======================================================== */
+  .menu-stream {
+    display: grid;
+    gap: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  /* Mobile category header (hidden on desktop in favour of stage) */
+  .cat-head-mobile {
+    display: grid;
+    gap: .4rem;
+    max-width: 680px;
+    margin-bottom: 1.5rem;
+  }
+  @media (min-width: 980px) { .cat-head-mobile { display: none; } }
+
+  .cat-head-mobile .cat-num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: .68rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--ember-deep);
+  }
+  .cat-head-mobile .display {
+    font-size: clamp(2rem, 8vw, 3rem);
+    color: var(--moss-deep);
+    margin: 0;
+  }
+  .cat-head-mobile em { color: var(--ember); }
+  .cat-head-mobile .hand { font-size: 1.4rem; color: var(--ember); }
+  .cat-note {
+    font-size: 1.05rem;
+    max-width: 52ch;
+    color: var(--text-body);
+    font-weight: 500;
+    margin-top: .4rem;
+  }
+
+  .menu-cat { scroll-margin-top: 140px; position: relative; }
+
+  /* Desktop anchor marker — a small tag above each category */
+  .cat-anchor {
+    display: none;
+    align-items: center;
+    gap: .8rem;
+    margin-bottom: 1.2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--ember-deep);
+  }
+  @media (min-width: 980px) { .cat-anchor { display: flex; } }
+  .anchor-line {
+    display: inline-block;
+    width: 44px;
+    height: 1px;
+    background: var(--ember);
+  }
+
+  /* ---- Items ---- */
+  .cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .menu-item {
+    padding: .7rem 0;
+    border-bottom: 1px solid rgba(66, 81, 53, .12);
+    transition: transform .45s cubic-bezier(.2,.7,.2,1);
+    position: relative;
+    --tx: 0px;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  @media (min-width: 980px) {
+    .menu-item {
+      transform: translateX(var(--tx));
+    }
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: -18px;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--ember);
+      transform: translateY(-50%) scale(0);
+      transition: transform .35s cubic-bezier(.2,.7,.2,1);
+    }
+    .menu-item:hover::before { transform: translateY(-50%) scale(1); }
+  }
+
+  .item-line {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: .9rem;
+  }
+  .item-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 1.4vw, 1.5rem);
+    color: var(--moss-deep);
+    margin: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .55rem;
+    transition: color .3s;
+  }
+  .menu-item:hover .item-name { color: var(--ember-deep); }
+  .name-text { position: relative; }
+  .name-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: var(--ember);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .menu-item:hover .name-text::after { transform: scaleX(1); }
+
+  .vol-chip {
+    font-family: 'Inter', sans-serif;
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--moss);
+    background: rgba(134, 154, 102, .15);
+    border: 1px solid rgba(66, 81, 53, .2);
+    padding: .22rem .55rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .dotted-fill {
+    align-self: end;
+    margin-bottom: .45rem;
+    border-top: 1px dotted rgba(66, 81, 53, .4);
+  }
+
+  .price {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--ember-deep);
+    font-variant-numeric: tabular-nums;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), color .3s;
+    display: inline-block;
+  }
+  .menu-item:hover .price {
+    transform: scale(1.08);
+    color: var(--ember);
+  }
+
+  .item-desc {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-body);
+    margin: .35rem 0 0;
+    max-width: 48ch;
+    font-style: italic;
+  }
+
+  .badge {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: .58rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--parchment-soft);
+    background: var(--ember);
+    padding: .2rem .55rem;
+    border-radius: 999px;
+  }
+
+  /* ========================================================
+     OUTRO
+  ======================================================== */
+  .menu-outro { padding-block: clamp(5rem, 10vw, 8rem); position: relative; z-index: 1; }
+  .menu-outro-inner {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .menu-outro-inner { grid-template-columns: 1fr; }
+    .outro-art { order: -1; max-width: 320px; margin: 0 auto; }
+  }
+  .outro-title {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: var(--moss-deep);
+    margin: .5rem 0 1rem;
+  }
+  .outro-title :global(em) { color: var(--ember); }
+  .outro-sub { color: var(--text-body); font-weight: 600; margin-bottom: 1.5rem; max-width: 48ch; }
+  .outro-art { aspect-ratio: 4 / 5; width: 100%; }
+  .outro-art img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .menu-bg .bean,
+    .glyph *,
+    .stage-slide {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>

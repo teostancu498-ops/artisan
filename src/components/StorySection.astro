@@ -1,0 +1,111 @@
+---
+const storyImg = '/images/interior-seating.webp';
+---
+
+<section id="story" class="story frame">
+  <div class="story-inner">
+    <div class="story-text" data-reveal-stagger>
+      <p class="eyebrow" data-reveal-child>Mica noastră poveste</p>
+
+      <h2 class="display" data-reveal-child>
+        Construit ca o <em>seră</em>:<br/>
+        liniștită, caldă, vie.
+      </h2>
+
+      <p data-reveal-child>
+        Am pornit Artizan Urban pentru că Pitești merita o încăpere care
+        respiră — un loc unde ceainicul fredonează, iedera se cațără spre bar,
+        iar un străin se simte ca un vecin la a doua sorbitură.
+      </p>
+
+      <p data-reveal-child>
+        Fiecare bob îl prăjesc prieteni de încredere, în șarje mici. Fiecare
+        ceașcă se toarnă manual. Nimic nu se face în grabă — pentru că lucrurile
+        bune, ca roșiile, pâinea și diminețile, pur și simplu nu pot.
+      </p>
+
+      <div class="story-ctas" data-reveal-child>
+        <a href="/about-us" class="btn-ghost">
+          Citește povestea noastră
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="story-visual" data-reveal="scale">
+      <div class="mood-image window-frame" data-parallax=".08">
+        <img src={storyImg} alt="Fereastră de cafenea cu plante și lumină caldă" loading="lazy" />
+        <div class="frame-grid" aria-hidden="true">
+          <div></div><div></div><div></div><div></div>
+        </div>
+      </div>
+      <p class="story-caption hand">Priveliștea din fereastra noastră — în fiecare zi, altfel.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story {
+    position: relative;
+    z-index: 2;
+    padding-block: clamp(5rem, 12vw, 10rem);
+  }
+  .story-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+    width: min(1200px, 100%);
+    margin: 0 auto;
+  }
+  @media (max-width: 900px) {
+    .story-inner { grid-template-columns: 1fr; }
+  }
+
+  .story-text .display {
+    font-size: clamp(2.2rem, 4.5vw, 4rem);
+    color: var(--moss-deep);
+    margin: .8rem 0 1.6rem;
+    max-width: 18ch;
+  }
+  .story-text em { color: var(--ember); }
+  .story-text p {
+    max-width: 52ch;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--text-body);
+  }
+  .story-ctas { margin-top: 1rem; }
+
+  .story-visual { position: relative; }
+
+  .window-frame {
+    aspect-ratio: 4 / 5;
+    max-width: 100%;
+  }
+  .window-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .frame-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .frame-grid > div {
+    border: 1px solid rgba(43, 52, 37, .15);
+  }
+
+  .story-caption {
+    text-align: right;
+    margin-top: 1rem;
+    font-size: 1.3rem;
+  }
+</style>

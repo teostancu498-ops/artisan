@@ -1,0 +1,385 @@
+---
+import Base from '~/layouts/Base.astro';
+import PageHeader from '~/components/PageHeader.astro';
+import Marquee from '~/components/Marquee.astro';
+
+const values = [
+  {
+    title: 'Încet, intenționat',
+    body:
+      'Cronometrăm extracțiile, nu clienții. Dacă vrei o ceașcă în 20 de secunde, nu suntem noi. Dacă vrei o ceașcă care merită minutul în plus, trage-ți un scaun.',
+  },
+  {
+    title: 'De la oameni mici',
+    body:
+      'Boabele vin de la prăjitori mici pe care îi știm pe nume. Laptele vine de la o fermă la 40 km de Pitești. Pâinea, de la brutăria de pe Exercițiu.',
+  },
+  {
+    title: 'Plantele au drept',
+    body:
+      'Sera nu e o metaforă — replantăm ceva nou aproape în fiecare lună. Câțiva clienți au început să aducă și butași. Ne bucură.',
+  },
+  {
+    title: 'Cu suflet românesc',
+    body:
+      'Suntem un bar de specialitate, dar suntem mândri că suntem unul românesc. Cozonac prăjit în decembrie, soc în mai și prețuri cinstite tot anul.',
+  },
+];
+
+const timeline = [
+  {
+    year: '2019',
+    title: 'Se deschide o ușă mică',
+    body: 'Semnăm contractul pentru blocul 35. Trei mese, un Marzocco, multe emoții.',
+  },
+  {
+    year: '2020',
+    title: 'Ceainicul nu se oprește',
+    body: 'Rămânem deschiși în anul greu — doar la pachet, cu bilete scrise de mână pe fiecare ceașcă.',
+  },
+  {
+    year: '2022',
+    title: 'Camera cu plante',
+    body: 'Spargem un perete, punem un luminator. Plantele se mută la noi. Clienții fideli își revendică colțurile.',
+  },
+  {
+    year: '2024',
+    title: '296 de mulțumiri și numărul crește',
+    body: 'Ne-ai lăsat o medie de 4.9 pe Google. Le citim pe toate, cu ceainicul fredonând.',
+  },
+];
+
+const polaroids = [
+  {
+    img: '/images/v60-pouring.webp',
+    caption: 'turnare încet, marți',
+    alt: 'Barista turnând cafea',
+  },
+  {
+    img: '/images/interior-seating.webp',
+    caption: 'camera cu plante',
+    alt: 'Plante verzi în cafenea',
+  },
+  {
+    img: '/images/flat-white.webp',
+    caption: 'rosetta, vineri',
+    alt: 'Latte art rosetta',
+  },
+];
+---
+
+<Base
+  title="Despre noi"
+  description="Povestea din spatele Artizan Urban Coffee Shop din Pitești — cafea făcută fără grabă, ingrediente locale, un mic bar-seră."
+  pageClass="page-about"
+>
+  <PageHeader
+    eyebrow="Cine suntem"
+    title="Un bar micuț, o <em>mare</em><br/>dragoste de dimineți."
+    subtitle="Artizan Urban a început ca o idee mică între prieteni în Pitești: o cafenea care să se simtă ca o seră în primăvară — caldă, verde, fără grabă."
+  />
+
+  <!-- Story spread -->
+  <section class="story-spread frame">
+    <div class="spread-inner">
+      <div class="spread-text" data-reveal-stagger>
+        <p class="drop" data-reveal-child>
+          <span class="drop-cap">A</span>
+          rtizan Urban nu a fost gândit să fie zgomotos. L-am construit cum
+          construiești o seră în fundul grădinii: încet, cu lumină caldă, cu
+          loc unde lucrurile să crească.
+        </p>
+        <p data-reveal-child>
+          Barul e mic dinadins. Încap zece cești de espresso, două râșnițe, un
+          ceainic care fredonează și o fereastră care aduce lumina de după-amiază
+          dinspre apus. Plantele au venit după, dar acum sunt primul lucru pe
+          care îl observi.
+        </p>
+        <p data-reveal-child>
+          Nu prăjim nimic aici — nu e meseria noastră. Preparăm totul aici —
+          și asta e. Schimbăm originile la câteva săptămâni, alegem ceaiuri pe
+          care le bem și noi acasă și nu coacem nimic ce nu i-am servi bunicii
+          (sau: rețeta ei veche de cozonac, serios, în fiecare decembrie).
+        </p>
+        <p class="signature hand" data-reveal-child>— echipa Artizan Urban</p>
+      </div>
+
+      <div class="spread-visual" data-reveal="scale">
+        {polaroids.map((p, i) => (
+          <div class={`polaroid p${i + 1}`} data-tilt>
+            <div class="polaroid-photo">
+              <img src={p.img} alt={p.alt} loading="lazy" />
+            </div>
+            <p class="polaroid-caption">{p.caption}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Marquee items={['Cafea fără grabă', 'Ferme mici', 'Lumină caldă', 'Plante bune', 'Oameni calzi', 'Dimineți deschise']} />
+
+  <!-- Values -->
+  <section class="values frame" id="values">
+    <div class="values-inner">
+      <header class="values-head" data-reveal-stagger>
+        <p class="eyebrow" data-reveal-child>Cum luăm deciziile</p>
+        <h2 class="display" data-reveal-child>
+          Patru <em>reguli liniștite</em> <br/>care țin barul în picioare.
+        </h2>
+      </header>
+
+      <ul class="values-list" data-reveal-stagger>
+        {values.map((v, i) => (
+          <li class="value" data-reveal-child data-tilt>
+            <span class="value-num">0{i + 1}</span>
+            <h3>{v.title}</h3>
+            <p>{v.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="timeline frame">
+    <div class="timeline-inner">
+      <header class="timeline-head" data-reveal-stagger>
+        <p class="eyebrow" data-reveal-child>Ultimii câțiva ani</p>
+        <h2 class="display" data-reveal-child>O <em>scurtă</em> istorie<br/>a unui loc mic.</h2>
+      </header>
+
+      <ol class="timeline-list">
+        {timeline.map((t) => (
+          <li class="tl-item" data-reveal="up">
+            <div class="tl-dot" aria-hidden="true"></div>
+            <div class="tl-year">{t.year}</div>
+            <h3>{t.title}</h3>
+            <p>{t.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="about-cta frame" data-reveal>
+    <div class="about-cta-inner">
+      <h2 class="display">
+        Cel mai bun lucru pe care ți-l putem spune despre noi e să <em>vii pe la noi.</em>
+      </h2>
+      <div class="cta-row">
+        <a href="/visit-us" class="btn-leaf">Planifică vizita</a>
+        <a href="/menu" class="btn-ghost">Vezi meniul</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .story-spread {
+    position: relative;
+    z-index: 2;
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+  .spread-inner {
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+  }
+  @media (max-width: 960px) {
+    .spread-inner { grid-template-columns: 1fr; }
+  }
+
+  .spread-text p {
+    color: var(--text-body);
+    font-weight: 600;
+    max-width: 54ch;
+    margin-bottom: 1.2rem;
+    font-size: 1.12rem;
+  }
+  .drop { font-size: 1.18rem; }
+  .drop-cap {
+    float: left;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 4.5rem;
+    line-height: .85;
+    color: var(--ember-deep);
+    padding-right: .6rem;
+    padding-top: .35rem;
+  }
+  .signature { font-size: 1.4rem; color: var(--ember); }
+
+  .spread-visual {
+    position: relative;
+    aspect-ratio: 1 / 1.1;
+    max-width: 540px;
+    margin-inline: auto;
+    width: 100%;
+  }
+  .polaroid {
+    position: absolute;
+    width: 62%;
+    background: var(--parchment-soft);
+    padding: 10px 10px 0;
+    box-shadow:
+      0 40px 70px -25px rgba(43, 52, 37, .45),
+      0 0 0 1px rgba(66, 81, 53, .15);
+    transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s;
+    cursor: pointer;
+  }
+  .polaroid-photo {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--parchment);
+  }
+  .polaroid-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s;
+    filter: saturate(1.02) contrast(1.02);
+  }
+  .polaroid:hover .polaroid-photo img { transform: scale(1.06); }
+  .polaroid-caption {
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--ember);
+    text-align: center;
+    padding: .5rem 0 .6rem;
+    margin: 0;
+  }
+  .polaroid:hover { z-index: 5; }
+  .p1 { top: 0; left: 0; transform: rotate(-5deg); }
+  .p2 { top: 18%; right: 0; transform: rotate(6deg); }
+  .p3 { bottom: 0; left: 20%; transform: rotate(-2deg); }
+
+  /* values */
+  .values {
+    position: relative;
+    z-index: 2;
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+  .values-inner { width: min(1200px, 100%); margin: 0 auto; }
+  .values-head { max-width: 620px; margin-bottom: clamp(2.5rem, 5vw, 4rem); display: grid; gap: .8rem; }
+  .values-head .display { font-size: clamp(2rem, 4.5vw, 3.4rem); color: var(--moss-deep); margin: 0; }
+  .values-head em { color: var(--ember); }
+
+  .values-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 720px) { .values-list { grid-template-columns: 1fr; } }
+
+  .value {
+    padding: 2rem 1.8rem;
+    border: 1px solid rgba(66, 81, 53, .2);
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(251, 247, 236, .9), rgba(237, 227, 204, .55));
+    box-shadow: 0 18px 40px -24px rgba(43, 52, 37, .25);
+    position: relative;
+    transition: border-color .4s, box-shadow .4s;
+  }
+  .value:hover {
+    border-color: rgba(184, 80, 46, .5);
+    box-shadow: 0 30px 55px -20px rgba(43, 52, 37, .3);
+  }
+  .value-num {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: .72rem;
+    letter-spacing: .35em;
+    color: var(--ember-deep);
+    margin-bottom: .6rem;
+  }
+  .value h3 {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: 1.5rem; color: var(--moss-deep);
+    margin: 0 0 .6rem;
+  }
+  .value p { color: var(--text-body); font-weight: 500; margin: 0; max-width: 40ch; }
+
+  /* timeline */
+  .timeline {
+    position: relative;
+    z-index: 2;
+    padding-block: clamp(4rem, 10vw, 8rem);
+    background: radial-gradient(ellipse at 20% 100%, rgba(107, 129, 80, .18), transparent 60%);
+  }
+  .timeline-inner {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+  @media (max-width: 880px) { .timeline-inner { grid-template-columns: 1fr; } }
+
+  .timeline-head { display: grid; gap: .8rem; }
+  .timeline-head .display { font-size: clamp(2rem, 4vw, 3rem); color: var(--moss-deep); margin: 0; }
+  .timeline-head em { color: var(--ember); }
+
+  .timeline-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: grid;
+    gap: 2rem;
+    border-left: 1px dashed rgba(66, 81, 53, .35);
+    padding-left: 2rem;
+    position: relative;
+  }
+  .tl-item { position: relative; }
+  .tl-dot {
+    position: absolute;
+    left: -2.5rem;
+    top: .6rem;
+    width: 12px; height: 12px;
+    border-radius: 999px;
+    background: var(--ember);
+    box-shadow: 0 0 0 4px rgba(184, 80, 46, .25);
+  }
+  .tl-year {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: .7rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--ember-deep);
+    margin-bottom: .3rem;
+  }
+  .tl-item h3 {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: 1.5rem; color: var(--moss-deep);
+    margin: 0 0 .4rem;
+  }
+  .tl-item p { color: var(--text-body); font-weight: 500; margin: 0; max-width: 50ch; }
+
+  /* about cta */
+  .about-cta { padding-block: clamp(5rem, 10vw, 8rem); }
+  .about-cta-inner {
+    width: min(900px, 100%);
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+    gap: 2rem;
+    justify-items: center;
+  }
+  .about-cta-inner .display {
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    color: var(--moss-deep);
+    margin: 0;
+    max-width: 22ch;
+  }
+  .about-cta-inner em { color: var(--ember); }
+  .cta-row { display: inline-flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; align-items: center; }
+</style>

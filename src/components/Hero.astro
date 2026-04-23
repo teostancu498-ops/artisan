@@ -1,0 +1,490 @@
+---
+import { site } from '~/data/site';
+
+const heroImage = '/images/v60-pouring.webp';
+const heroImageAccent = '/images/interior-window.webp';
+---
+
+<section class="hero" id="hero">
+  <div class="hero-sky" aria-hidden="true">
+    <span class="lantern l1 animate-flicker"></span>
+    <span class="lantern l2 animate-flicker"></span>
+    <span class="lantern l3 animate-flicker"></span>
+  </div>
+
+  <!-- Greenhouse glass panels -->
+  <div class="glass-panels" aria-hidden="true">
+    <div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <!-- SVG vines in corners -->
+  <svg class="vine vine-left"  viewBox="0 0 200 400" aria-hidden="true">
+    <path d="M20,0 C40,80 0,140 30,220 C60,300 20,340 30,400"
+          fill="none" stroke="currentColor" stroke-width="1.2" />
+    <g class="leaves">
+      <ellipse cx="35"  cy="60"  rx="14" ry="7" transform="rotate(-25 35 60)" fill="currentColor" opacity=".55"/>
+      <ellipse cx="10"  cy="130" rx="16" ry="8" transform="rotate(20 10 130)" fill="currentColor" opacity=".45"/>
+      <ellipse cx="40"  cy="210" rx="14" ry="7" transform="rotate(-15 40 210)" fill="currentColor" opacity=".55"/>
+      <ellipse cx="18"  cy="300" rx="18" ry="8" transform="rotate(30 18 300)" fill="currentColor" opacity=".5"/>
+    </g>
+  </svg>
+  <svg class="vine vine-right" viewBox="0 0 200 400" aria-hidden="true">
+    <path d="M180,0 C160,80 200,140 170,220 C140,300 180,340 170,400"
+          fill="none" stroke="currentColor" stroke-width="1.2" />
+    <g class="leaves">
+      <ellipse cx="165" cy="60"  rx="14" ry="7" transform="rotate(25 165 60)" fill="currentColor" opacity=".55"/>
+      <ellipse cx="190" cy="130" rx="16" ry="8" transform="rotate(-20 190 130)" fill="currentColor" opacity=".45"/>
+      <ellipse cx="160" cy="210" rx="14" ry="7" transform="rotate(15 160 210)" fill="currentColor" opacity=".55"/>
+      <ellipse cx="182" cy="300" rx="18" ry="8" transform="rotate(-30 182 300)" fill="currentColor" opacity=".5"/>
+    </g>
+  </svg>
+
+  <div class="hero-inner frame">
+    <div class="hero-copy">
+      <p class="eyebrow" data-hero-eyebrow>
+        <span>O seră pentru cafea fără grabă</span>
+        <span class="dot">·</span>
+        <span>Pitești</span>
+      </p>
+
+      <h1 class="display hero-title" data-hero-title>
+        <span class="line">Unde diminețile</span>
+        <span class="line">cresc <em>încet</em>,</span>
+        <span class="line">cu o ceașcă pe rând.</span>
+      </h1>
+
+      <p class="hero-sub" data-hero-sub>
+        Artizan Urban este o cafenea mică pe Bulevardul I. C. Brătianu, unde
+        ferestrele lasă lumina caldă să intre, plantele se apleacă spre bar,
+        iar espresso-ul se extrage cu aceeași răbdare cu care citești o carte bună.
+      </p>
+
+      <div class="hero-ctas" data-hero-ctas>
+        <a href="/visit-us" class="btn-leaf">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2C7 2 3 6 3 11c0 6 9 11 9 11s9-5 9-11c0-5-4-9-9-9z"
+                  stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="12" cy="11" r="3" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+          Găsește sera
+        </a>
+        <a href="/menu" class="btn-ghost">
+          Vezi meniul
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Big balanced photo on the right -->
+    <div class="hero-photo" data-hero-photo aria-hidden="false">
+      <div class="hero-photo-main">
+        <img src={heroImage} alt="Turnare V60 peste filtru, aburi calzi" loading="eager" fetchpriority="high" />
+        <div class="steam-stack" aria-hidden="true">
+          <span class="steam s1"></span>
+          <span class="steam s2"></span>
+          <span class="steam s3"></span>
+          <span class="steam s4"></span>
+          <span class="steam s5"></span>
+        </div>
+      </div>
+      <div class="hero-photo-accent">
+        <img src={heroImageAccent} alt="Plante verzi în cafenea" loading="eager" />
+      </div>
+      <div class="hero-sticker" aria-hidden="true">
+        <span class="hand">proaspăt<br/>turnat</span>
+      </div>
+    </div>
+
+    <div class="hero-meta" data-hero-meta>
+      <div class="meta-card" data-tilt>
+        <span class="hand">deschis azi</span>
+        <strong>08:00 – 21:00</strong>
+        <small>{site.address}</small>
+      </div>
+      <div class="meta-card" data-tilt>
+        <span class="hand">vorbe bune</span>
+        <strong>★ {site.rating}</strong>
+        <small>{site.reviewsCount} recenzii Google</small>
+      </div>
+      <div class="meta-card" data-tilt>
+        <span class="hand">la bar azi</span>
+        <strong>Flat white · 14 lei</strong>
+        <small>extras încet, servit cald</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* ambient colored light */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 18% 20%, rgba(200, 94, 58, 0.18), transparent 55%),
+      radial-gradient(ellipse at 82% 78%, rgba(134, 154, 102, 0.35), transparent 60%),
+      radial-gradient(ellipse at 50% 100%, rgba(43,52,37,.18), transparent 70%);
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  /* Glass panels overlay */
+  .glass-panels {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    pointer-events: none;
+    z-index: -1;
+    opacity: .35;
+  }
+  .glass-panels > div {
+    border-right: 1px solid rgba(66, 81, 53, .22);
+    background: linear-gradient(
+      180deg,
+      rgba(251,247,236,.05) 0%,
+      rgba(200, 94, 58, .06) 40%,
+      rgba(66,81,53,.08) 100%
+    );
+  }
+  .glass-panels > div:last-child { border-right: none; }
+
+  .hero-sky {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .lantern {
+    position: absolute;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(246, 228, 192, .7), rgba(200, 94, 58, .1) 60%, transparent 70%);
+    filter: blur(6px);
+  }
+  .l1 { top: 8%;  left: 14%; }
+  .l2 { top: 22%; right: 18%; width: 120px; height: 120px; }
+  .l3 { bottom: 18%; left: 55%; width: 200px; height: 200px; opacity: .55; }
+
+  .vine {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 160px;
+    color: var(--moss);
+    z-index: -1;
+    opacity: .5;
+  }
+  .vine-left { left: -30px; }
+  .vine-right { right: -30px; }
+  @media (max-width: 680px) {
+    .vine { width: 100px; opacity: .35; }
+    .vine-left { left: -40px; }
+    .vine-right { right: -40px; }
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    width: min(1280px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    grid-template-areas:
+      'copy  photo'
+      'meta  meta';
+    gap: clamp(2rem, 5vw, 5rem) clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+  @media (max-width: 960px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'copy'
+        'photo'
+        'meta';
+      gap: 2.5rem;
+    }
+  }
+
+  .hero-copy  { grid-area: copy; display: grid; gap: 1.3rem; justify-items: start; }
+  .hero-photo { grid-area: photo; }
+  .hero-meta  { grid-area: meta; }
+
+  .hero-copy .eyebrow { display: inline-flex; gap: .6rem; align-items: center; }
+  .hero-copy .eyebrow .dot { color: var(--ember); }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 7.25rem);
+    color: var(--moss-deep);
+    margin: 0;
+    max-width: 14ch;
+  }
+  .hero-title em {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ember);
+  }
+  .hero-title .line {
+    display: block;
+    overflow: hidden;
+  }
+  .hero-title .line > span,
+  .hero-title .line {
+    will-change: transform;
+  }
+
+  .hero-sub {
+    max-width: 50ch;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: clamp(1.1rem, 1.1vw + .85rem, 1.28rem);
+    line-height: 1.55;
+    color: var(--text-body);
+  }
+
+  .hero-ctas {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: .4rem;
+  }
+
+  /* ---------- Balanced hero photo ---------- */
+  .hero-photo {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    max-width: 560px;
+    justify-self: end;
+    animation: drift 8s ease-in-out infinite;
+  }
+  @media (max-width: 960px) {
+    .hero-photo { justify-self: center; margin-inline: auto; max-width: 420px; }
+  }
+
+  .hero-photo-main {
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow:
+      0 60px 100px -40px rgba(43, 52, 37, .55),
+      0 0 0 1px rgba(66, 81, 53, .18);
+    background: var(--parchment);
+    transform: rotate(-1.5deg);
+  }
+  .hero-photo-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.02) contrast(1.02);
+    will-change: transform;
+  }
+  .hero-photo-main::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(251, 247, 236, .0) 60%, rgba(43, 52, 37, .25) 100%),
+      radial-gradient(ellipse at 20% 10%, rgba(246, 228, 192, .25), transparent 50%);
+  }
+
+  .hero-photo-accent {
+    position: absolute;
+    bottom: -6%;
+    left: -8%;
+    width: 48%;
+    aspect-ratio: 4 / 5;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow:
+      0 40px 70px -30px rgba(43, 52, 37, .55),
+      0 0 0 6px var(--parchment-soft),
+      0 0 0 7px rgba(66, 81, 53, .22);
+    background: var(--parchment);
+    transform: rotate(-6deg);
+    z-index: 2;
+  }
+  .hero-photo-accent img { width: 100%; height: 100%; object-fit: cover; }
+
+  .hero-sticker {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 110px;
+    height: 110px;
+    border-radius: 999px;
+    background: var(--ember);
+    color: var(--parchment-soft);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.3rem;
+    line-height: 1;
+    padding: .8rem;
+    transform: rotate(12deg);
+    box-shadow:
+      0 18px 30px -14px rgba(138, 58, 30, .55),
+      0 0 0 3px var(--parchment-soft),
+      0 0 0 4px rgba(184, 80, 46, .35);
+    z-index: 3;
+    animation: sticker-spin 14s linear infinite;
+  }
+  .hero-sticker .hand { color: var(--parchment-soft); font-size: 1.25rem; }
+
+  @keyframes sticker-spin {
+    0%   { transform: rotate(8deg); }
+    50%  { transform: rotate(16deg); }
+    100% { transform: rotate(8deg); }
+  }
+
+  .steam-stack {
+    position: absolute;
+    top: 10%;
+    left: 42%;
+    width: 80px;
+    height: 80px;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .steam {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(251, 247, 236, .85);
+    filter: blur(4px);
+    animation: steam 4.5s ease-out infinite;
+  }
+  .s1 { animation-delay: .0s; left: 46%; }
+  .s2 { animation-delay: .6s; left: 54%; }
+  .s3 { animation-delay: 1.2s; left: 48%; }
+  .s4 { animation-delay: 1.8s; left: 56%; }
+  .s5 { animation-delay: 2.4s; left: 50%; }
+
+  /* ---------- Meta cards ---------- */
+  .hero-meta {
+    margin-top: clamp(1rem, 3vw, 2rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    width: 100%;
+  }
+  @media (max-width: 720px) {
+    .hero-meta { grid-template-columns: 1fr; }
+  }
+  .meta-card {
+    padding: 1.3rem 1.3rem 1.2rem;
+    border: 1px solid rgba(66, 81, 53, .22);
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(251, 247, 236, .75), rgba(237, 227, 204, .5));
+    backdrop-filter: blur(6px);
+    box-shadow: 0 14px 30px -18px rgba(43, 52, 37, .3);
+    display: grid;
+    gap: .3rem;
+    transition: border-color .4s, box-shadow .4s;
+  }
+  .meta-card:hover {
+    border-color: rgba(184, 80, 46, .45);
+    box-shadow: 0 20px 40px -18px rgba(43, 52, 37, .35);
+  }
+  .meta-card .hand { font-size: 1.15rem; color: var(--ember); }
+  .meta-card strong {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--moss-deep);
+  }
+  .meta-card small {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: .74rem;
+    letter-spacing: .1em;
+    color: var(--moss);
+  }
+
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const linesEl = document.querySelectorAll<HTMLElement>('.hero-title .line');
+  const eyebrow = document.querySelector<HTMLElement>('[data-hero-eyebrow]');
+  const sub     = document.querySelector<HTMLElement>('[data-hero-sub]');
+  const ctas    = document.querySelector<HTMLElement>('[data-hero-ctas]');
+  const meta    = document.querySelector<HTMLElement>('[data-hero-meta]');
+  const photo   = document.querySelector<HTMLElement>('[data-hero-photo]');
+
+  if (prefersReduced) {
+    [eyebrow, sub, ctas, meta, photo].forEach((el) => {
+      if (el) el.style.opacity = '1';
+    });
+  } else {
+    linesEl.forEach((line) => {
+      const inner = document.createElement('span');
+      inner.style.display = 'inline-block';
+      inner.style.willChange = 'transform';
+      inner.innerHTML = line.innerHTML;
+      line.innerHTML = '';
+      line.appendChild(inner);
+    });
+
+    const innerLines = document.querySelectorAll<HTMLElement>('.hero-title .line > span');
+
+    gsap.set([eyebrow, sub, ctas, meta, photo], { opacity: 0, y: 30 });
+    gsap.set(innerLines, { yPercent: 110 });
+
+    const tl = gsap.timeline({ delay: 0.9 });
+    tl.to(eyebrow, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' })
+      .to(innerLines, { yPercent: 0, duration: 1.2, ease: 'power3.out', stagger: 0.1 }, '-=0.5')
+      .to(photo, { opacity: 1, y: 0, duration: 1.4, ease: 'power3.out' }, '-=1.0')
+      .to(sub,   { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.9')
+      .to(ctas,  { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.7')
+      .to(meta,  { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.6');
+
+    // Subtle mouse parallax on the big photo
+    const mainImg = photo?.querySelector<HTMLElement>('.hero-photo-main img');
+    const accentImg = photo?.querySelector<HTMLElement>('.hero-photo-accent');
+    if (mainImg) {
+      window.addEventListener('pointermove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 14;
+        const y = (e.clientY / window.innerHeight - 0.5) * 10;
+        gsap.to(mainImg,  { x: -x,      y: -y,     duration: 1.2, ease: 'power3.out' });
+        if (accentImg) gsap.to(accentImg, { x: x * 0.6, y: y * 0.4, duration: 1.4, ease: 'power3.out' });
+      });
+    }
+
+    // Light scroll parallax
+    window.addEventListener('scroll', () => {
+      if (!photo) return;
+      const y = window.scrollY;
+      if (y < window.innerHeight) {
+        gsap.to(photo, { y: y * 0.08, duration: .5, ease: 'power2.out' });
+      }
+    }, { passive: true });
+  }
+</script>

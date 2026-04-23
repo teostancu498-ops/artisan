@@ -1,0 +1,147 @@
+---
+const reviews = [
+  {
+    quote:
+      "Cafeaua a fost incredibilă, delicată și plină de aromă. Locul are o atmosferă plăcută, liniștită, cu muzică de chill-out.",
+    name: 'Nicole',
+    role: 'Local Guide · Google',
+  },
+  {
+    quote:
+      "Cafeaua e chiar bună și prețul e corect — 15 lei pentru un flat white și 12 pentru un cappuccino. Ambianța e cozy, iar serviciul atent.",
+    name: 'Vitor',
+    role: 'Recenzie Google',
+  },
+  {
+    quote:
+      "Parcare ușoară, barista excelent, cafea și ceai cu adevărat uimitoare. O oprire cu adevărat bună într-un drum lung prin România.",
+    name: 'Dasith',
+    role: 'Local Guide · Google',
+  },
+];
+---
+
+<section class="reviews frame" id="reviews">
+  <div class="reviews-inner">
+    <div class="reviews-head" data-reveal-stagger>
+      <p class="eyebrow" data-reveal-child>Ce spun oaspeții</p>
+      <h2 class="display" data-reveal-child>
+        296 de <em>mulțumiri</em>
+        <br/>de la oameni ca tine.
+      </h2>
+      <p class="score" data-reveal-child>
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <strong>4.9</strong> pe Google — cafea de specialitate, oameni calzi, boabe proaspăt măcinate.
+      </p>
+    </div>
+
+    <div class="reviews-grid">
+      {reviews.map((r, i) => (
+        <figure class="review-card" data-reveal-child data-tilt style={`--i:${i}`}>
+          <span class="quote-mark" aria-hidden="true">“</span>
+          <blockquote>{r.quote}</blockquote>
+          <figcaption>
+            <span class="who">{r.name}</span>
+            <span class="role">{r.role}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    position: relative;
+    z-index: 2;
+    padding-block: clamp(4rem, 10vw, 8rem);
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(107, 129, 80, .18), transparent 60%);
+  }
+  .reviews-inner { width: min(1200px, 100%); margin: 0 auto; }
+
+  .reviews-head {
+    display: grid;
+    gap: .8rem;
+    max-width: 620px;
+    margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+    text-align: center;
+    justify-items: center;
+  }
+  .reviews-head .display {
+    font-size: clamp(2rem, 4.5vw, 3.6rem);
+    color: var(--moss-deep);
+    margin: 0;
+  }
+  .reviews-head em { color: var(--ember); }
+  .score {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: .9rem;
+    color: var(--moss);
+    letter-spacing: .05em;
+  }
+  .score .stars { color: var(--ember); letter-spacing: .1em; margin-right: .4rem; }
+  .score strong { color: var(--moss-deep); font-weight: 700; margin-right: .3rem; }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+
+  .review-card {
+    position: relative;
+    padding: 2.5rem 1.8rem 1.8rem;
+    border: 1px solid rgba(66, 81, 53, .2);
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(251, 247, 236, .9), rgba(237, 227, 204, .55));
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+    box-shadow: 0 18px 40px -24px rgba(43, 52, 37, .3);
+    transition: border-color .4s, box-shadow .4s;
+  }
+  .review-card:hover {
+    border-color: rgba(184, 80, 46, .5);
+    box-shadow: 0 30px 55px -20px rgba(43, 52, 37, .3), 0 0 0 1px rgba(184, 80, 46, .15);
+  }
+  .quote-mark {
+    position: absolute;
+    top: -24px; left: 20px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 5rem;
+    color: var(--ember);
+    line-height: 1;
+  }
+  blockquote {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 1.18rem;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+  }
+  figcaption {
+    display: flex; flex-direction: column; gap: .1rem;
+    padding-top: .8rem;
+    border-top: 1px dashed rgba(66, 81, 53, .25);
+  }
+  .who {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--moss-deep);
+  }
+  .role {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: .7rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--moss);
+  }
+</style>

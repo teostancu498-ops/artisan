@@ -1,0 +1,23 @@
+{
+  "name": "artizan-urban-coffee",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A warm greenhouse for coffee lovers in Pitești — Artizan Urban Coffee Shop",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/tailwind": "^5.1.2",
+    "astro": "^4.16.10",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.13",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.3"
+  }
+}

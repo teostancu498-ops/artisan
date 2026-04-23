@@ -1,0 +1,65 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;           // may contain <em> and <br/>
+  subtitle?: string;
+}
+const { eyebrow, title, subtitle } = Astro.props;
+---
+
+<header class="page-header frame">
+  <div class="page-header-inner">
+    <p class="eyebrow" data-reveal>{eyebrow}</p>
+    <h1 class="display page-title" data-reveal="up" data-reveal-delay="0.15" set:html={title}></h1>
+    {subtitle && <p class="page-sub" data-reveal="up" data-reveal-delay="0.3">{subtitle}</p>}
+  </div>
+
+  <svg class="ornament" viewBox="0 0 800 80" aria-hidden="true">
+    <path d="M0 40 C 200 10 300 70 400 40 S 600 10 800 40"
+          fill="none" stroke="currentColor" stroke-width="1" opacity=".35"/>
+    <circle cx="400" cy="40" r="4" fill="currentColor" opacity=".6"/>
+    <circle cx="200" cy="28" r="2" fill="currentColor" opacity=".4"/>
+    <circle cx="600" cy="52" r="2" fill="currentColor" opacity=".4"/>
+  </svg>
+</header>
+
+<style>
+  .page-header {
+    position: relative;
+    padding-top: clamp(7rem, 14vw, 10rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .page-header-inner {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+    gap: 1.2rem;
+    justify-items: center;
+  }
+  .page-title {
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    color: var(--moss-deep);
+    margin: 0;
+    max-width: 18ch;
+    line-height: .95;
+  }
+  .page-title :global(em) {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 400;
+    color: var(--ember);
+  }
+  .page-sub {
+    max-width: 52ch;
+    color: var(--text-body);
+    font-weight: 500;
+    font-size: 1.12rem;
+  }
+  .ornament {
+    display: block;
+    width: min(800px, 70%);
+    height: 40px;
+    margin: 2rem auto 0;
+    color: var(--moss);
+    opacity: .8;
+  }
+</style>
