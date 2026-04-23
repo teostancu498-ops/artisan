@@ -283,6 +283,7 @@ const outroImage = '/images/two-cups-outside.webp';
      RAIL (chip nav) - kept polished
   ======================================================== */
   .menu-rail {
+    display: none; /* Hidden on mobile */
     position: sticky;
     top: 64px;
     z-index: 10;
@@ -292,6 +293,11 @@ const outroImage = '/images/two-cups-outside.webp';
     -webkit-backdrop-filter: blur(14px);
     border-top: 1px solid rgba(66, 81, 53, .15);
     border-bottom: 1px solid rgba(66, 81, 53, .15);
+  }
+  @media (min-width: 980px) {
+    .menu-rail {
+      display: block; /* Visible on desktop */
+    }
   }
   .menu-rail ul {
     list-style: none;
