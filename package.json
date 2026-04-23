@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "description": "A warm greenhouse for coffee lovers in Pitești — Artizan Urban Coffee Shop",
+  "description": "A warm greenhouse for coffee lovers in Pitești - Artizan Urban Coffee Shop",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

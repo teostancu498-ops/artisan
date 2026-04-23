@@ -3,7 +3,7 @@
 A warm, greenhouse-inspired marketing site for **Artizan Urban Coffee Shop** in Pitești.
 Built to make people want to walk through the door.
 
-> *Bulevardul I. C. Brătianu, bl. 35 — Pitești, România*
+> *Bulevardul I. C. Brătianu, bl. 35 - Pitești, România*
 
 ---
 
@@ -16,7 +16,7 @@ Built to make people want to walk through the door.
 - **[Lenis](https://lenis.darkroom.engineering/)** – buttery smooth scrolling
 - **Google Fonts** – Fraunces (display), Cormorant Garamond (body), Inter (UI), Caveat (hand)
 
-No CMS, no tracker, no analytics by default. Content lives in `src/data/` as typed TypeScript — simple to edit, impossible to break the build.
+No CMS, no tracker, no analytics by default. Content lives in `src/data/` as typed TypeScript - simple to edit, impossible to break the build.
 
 ---
 
@@ -61,7 +61,7 @@ Core intentions:
 
 - **Moss greens** for calm (nav, titles, body text)
 - **Parchment cream** for the backdrop (warm, aged paper feel)
-- **Ember amber** for accents, emphasis, hover states — the candle light
+- **Ember amber** for accents, emphasis, hover states - the candle light
 - **Bark brown** for depth on coffee illustrations
 
 Typography mixes a soft display serif (Fraunces), an elegant body serif (Cormorant Garamond), a clean UI sans (Inter) and a hand-written accent (Caveat) for little chalkboard notes.
@@ -90,7 +90,7 @@ All non-essential motion respects `prefers-reduced-motion`.
 
 ## Deploying
 
-This is a static Astro site. After `npm run build`, the `dist/` folder is what you want — drop it on Netlify, Vercel, Cloudflare Pages, or any plain static host.
+This is a static Astro site. After `npm run build`, the `dist/` folder is what you want - drop it on Netlify, Vercel, Cloudflare Pages, or any plain static host.
 
 ---
 

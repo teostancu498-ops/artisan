@@ -80,8 +80,11 @@ const isActive = (href: string) =>
     gap: 1.5rem;
     padding-block: 1.1rem;
     color: var(--moss-deep);
-    transition: background .5s, backdrop-filter .5s, border-color .5s, padding .3s;
+    transition: transform .35s ease, background .5s, backdrop-filter .5s, border-color .5s, padding .3s;
     border-bottom: 1px solid transparent;
+  }
+  .site-nav.nav-hidden {
+    transform: translateY(-120%);
   }
   .site-nav.scrolled {
     background: rgba(245, 239, 224, .82);
@@ -220,9 +223,24 @@ const isActive = (href: string) =>
   const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
 
   if (nav) {
+    let lastY = window.scrollY;
     const onScroll = () => {
-      if (window.scrollY > 24) nav.classList.add('scrolled');
+      const y = window.scrollY;
+      if (y > 24) nav.classList.add('scrolled');
       else nav.classList.remove('scrolled');
+
+      // Hide nav while scrolling down, reveal while scrolling up.
+      // Keep it visible near top and while mobile menu is open.
+      if (!nav.classList.contains('nav-open')) {
+        const scrollingDown = y > lastY;
+        const movedEnough = Math.abs(y - lastY) > 6;
+
+        if (y < 80) nav.classList.remove('nav-hidden');
+        else if (movedEnough && scrollingDown) nav.classList.add('nav-hidden');
+        else if (movedEnough) nav.classList.remove('nav-hidden');
+      }
+
+      lastY = y;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -232,6 +250,7 @@ const isActive = (href: string) =>
     const setOpen = (open: boolean) => {
       nav.classList.toggle('nav-open', open);
       document.body.classList.toggle('nav-open', open);
+      if (open) nav.classList.remove('nav-hidden');
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Închide meniu' : 'Deschide meniu');
     };

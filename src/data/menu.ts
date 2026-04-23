@@ -90,7 +90,7 @@ export const menu: MenuCategory[] = [
     id: 'brew',
     title: 'B-R-E-W',
     subtitle: 'Turnată de mână, o ceașcă pe rând',
-    note: 'Metoda alternativă — spune-ne dacă o vrei mai fructuoasă, mai adâncă sau mai dulce.',
+    note: 'Metoda alternativă - spune-ne dacă o vrei mai fructuoasă, mai adâncă sau mai dulce.',
     accent: 'ember',
     glyph: 'pour',
     items: [

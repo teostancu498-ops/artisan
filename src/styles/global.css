@@ -73,7 +73,7 @@ body::before {
   z-index: 1;
 }
 
-/* Subtle cursor-follow warm light — kept gentle for light theme */
+/* Subtle cursor-follow warm light - kept gentle for light theme */
 .mood-light {
   position: fixed;
   top: 0;
@@ -184,7 +184,7 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ---------- Buttons ---------- */
 
-/* Primary — solid deep forest green, candle text, terracotta on hover */
+/* Primary - solid deep forest green, candle text, terracotta on hover */
 .btn-leaf {
   display: inline-flex;
   align-items: center;
@@ -228,7 +228,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 .btn-leaf:hover::after { opacity: 1; }
 
-/* Secondary — now solid pale cream with rust text, bolder, readable */
+/* Secondary - now solid pale cream with rust text, bolder, readable */
 .btn-ghost {
   display: inline-flex;
   align-items: center;
